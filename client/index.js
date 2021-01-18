@@ -65,17 +65,48 @@ console.log(nbProducts);
 // 2. Log the variable
 // 3. Log how many brands we have
 
+var brandlist = [];
+
+for (var i in marketplace){
+  brandlist.push(marketplace[i].brand);
+}
+//const brandlist = marketplace.map(product => product.brand)
+
+function onlyUnique(value, index, self){
+  return self.indexOf(value) === index;
+}
+console.log(brandlist.filter(onlyUnique));
+
 
 // 🎯 TODO: Sort by price
 // 1. Create a function to sort the marketplace products by price
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
 
+var productsPriceSort = marketplace;
+
+productsPriceSort.sort((a, b) => a.price - b.price);
+
+productsPriceSort.forEach((e) => {
+    console.log(`${e.price}`);
+});
+
 
 // 🎯 TODO: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
+
+var productsDateSort = marketplace;
+
+productsDateSort.sort((product1, product2) => {
+  let dateProduct1 = new Date(product1.date),
+      dateProduct2 = new Date(product2.date);
+  return dateProduct2 - dateProduct1;
+});
+productsDateSort.forEach((e) => {
+    console.log(`${e.date}`);
+});
 
 
 // 🎯 TODO: Filter a specific price range
