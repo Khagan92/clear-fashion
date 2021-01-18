@@ -56,6 +56,7 @@ vm.runInThisContext(fs.readFileSync(__dirname + "/data.js"))
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
 
+
 var nbProducts = marketplace.length;
 console.log(nbProducts);
 
