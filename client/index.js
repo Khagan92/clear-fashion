@@ -113,6 +113,16 @@ productsDateSort.forEach((e) => {
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
 
+var productsFiltred50And100 = marketplace;
+var productsFiltred50And100 = [];
+for (var i = 0; i < marketplace.length; i++) {
+    if (marketplace[i].price >= 50 && marketplace[i].price <= 100) {
+      productsFiltred50And100.push(marketplace[i]);
+    }
+}
+productsFiltred50And100.forEach((e) => {
+  console.log(`${e.price}`);
+});
 
 // 🎯 TODO: Average Basket
 // 1. Determine the average basket of the marketplace
