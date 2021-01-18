@@ -34,7 +34,8 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // I can find on these e-shops
 // 2. Log the variable
 
-
+const cheapestTShirt = "https://www.loom.fr/products/le-t-shirt";
+console.log(cheapestTShirt);
 
 
 
@@ -47,10 +48,16 @@ console.log(MY_FAVORITE_BRANDS[0]);
  * 👕
  */
 
+var fs = require("fs")
+var vm = require('vm')
+vm.runInThisContext(fs.readFileSync(__dirname + "/data.js"))
+
 // 🎯 TODO: Number of products
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
 
+var nbProducts = marketplace.length;
+console.log(nbProducts);
 
 // 🎯 TODO: Brands name
 // 1. Create a variable and assign it the list of brands name only
