@@ -39,6 +39,7 @@ console.log(cheapestTShirt);
 
 
 
+const { Console } = require("console");
 /**
  * 👕
  * Easy 😁?
@@ -128,7 +129,12 @@ productsFiltred50And100.forEach((e) => {
 // 1. Determine the average basket of the marketplace
 // 2. Log the average
 
-
+var avg = 0;
+for (var i = 0; i < marketplace.length; i++) {
+  avg = avg + marketplace[i].price; 
+}
+avg = avg/marketplace.length;
+console.log(`there you got the average basket : ${avg}`);
 
 
 
