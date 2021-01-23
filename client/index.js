@@ -149,7 +149,7 @@ console.log(`there you got the average basket : ${avg}`);
 // 1. Create an object called `brands` to manipulate products by brand name
 // The key is the brand name
 // The value is the array of products
-//
+
 // Example:
 // const brands = {
 //   'brand-name-1': [{...}, {...}, ..., {...}],
@@ -160,6 +160,23 @@ console.log(`there you got the average basket : ${avg}`);
 //
 // 2. Log the variable
 // 3. Log the number of products by brands
+
+const brands = {};
+brandlist.filter(onlyUnique)
+for (var i=0; i < brandlist.length; i++){
+  brands[brandlist[i]]=[];
+}
+
+for (var i=0; i < marketplace.length; i++){
+  brands[marketplace[i].brand].push(marketplace[i])
+}
+
+console.log(brands);
+
+for (var e in brands){
+  console.log(brands[e].length);
+}
+
 
 
 // 🎯 TODO: Sort by price for each brand
