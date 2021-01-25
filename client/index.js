@@ -175,6 +175,7 @@ console.log(brands);
 
 for (var e in brands){
   console.log(brands[e].length);
+
 }
 
 
@@ -183,12 +184,33 @@ for (var e in brands){
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
+const sortedBrandsPrice=brands;
+for (var e in sortedBrandsPrice){
+  //sortedBrandsPrice[e].sort((a, b) => a.price - b.price);
+  //console.log("I sorted 1 array");
+  //I don't know why but the sort seems to be used for the first two value(array) of the dictionnary then it's stop for no reason
+}
+//console.log(sortedBrandsPrice);
+
 
 // 🎯 TODO: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
 
+const sortedBrandsDate = brands;
+for (var e in sortedBrandsDate){
+  sortedBrandsDate[e].sort((product1, product2) => {
+    let dateProduct1 = new Date(product1.date),
+        dateProduct2 = new Date(product2.date);
+    return dateProduct1 - dateProduct2;
+  });
+}
 
+for (var e in sortedBrandsDate){
+  sortedBrandsDate[e].forEach((a) => {
+    console.log(`${a.date}`);
+});
+}
 
 
 
