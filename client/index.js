@@ -186,11 +186,17 @@ for (var e in brands){
 
 const sortedBrandsPrice=brands;
 for (var e in sortedBrandsPrice){
-  //sortedBrandsPrice[e].sort((a, b) => a.price - b.price);
-  //console.log("I sorted 1 array");
-  //I don't know why but the sort seems to be used for the first two value(array) of the dictionnary then it's stop for no reason
+  sortedBrandsPrice[e].sort((a, b) => {
+    return b.price - a.price;
+  });
 }
-//console.log(sortedBrandsPrice);
+
+for (var e in sortedBrandsPrice){
+  sortedBrandsPrice[e].forEach((a) => {
+    console.log(`${a.price}`);
+});
+console.log("next brand");
+}
 
 
 // 🎯 TODO: Sort by date for each brand
@@ -225,7 +231,9 @@ for (var e in sortedBrandsDate){
 // 1. Compute the p90 price value of each brand
 // The p90 value (90th percentile) is the lower value expected to be exceeded in 90% of the products
 
-
+for (var brand in sortedBrandsPrice){
+  console.log(`here you got the p90 price for ${brand} : ${sortedBrandsPrice[brand][Math.floor(sortedBrandsPrice[brand].length*0.10)].price}`);
+}
 
 
 
