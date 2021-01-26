@@ -27,6 +27,7 @@ const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
 const selectBrand = document.querySelector('#brand-select');
+const selectSort = document.querySelector('#sort-select');
 
 
 /**
@@ -167,16 +168,17 @@ selectBrand.addEventListener('change', event => {
     .then(() => render(brandFilter(currentProducts,event.target.value), currentPagination));
 });
 
+selectSort.addEventListener('change', event => {
+  fetchProducts()
+    .then(setCurrentProducts)
+    .then(() => render(recentFilter(currentProducts,event.target.value), currentPagination));
+});
 
 //other useful functions
 
 //brandFilter(currentProducts,event.target.value)
 const brandFilter = (productList, selectedBrand) => {
-
-  if (selectedBrand == "all"){
-    return productList;
-  }
-
+  if (selectedBrand === "all"){return productList;}
   else{
     const productsBrandSorted=[];
     for (var index in productList){
@@ -186,6 +188,28 @@ const brandFilter = (productList, selectedBrand) => {
     }
     return productsBrandSorted;
   }
-  
+}
+
+const recentFilter = (productList, selectedSort) => {
+  console.log(productList);
+  if (selectedSort === "date-asc"){
+    //get the current date and substract it two weeks
+    var currentDate = new Date();
+    var twoWeeksBeforeCurrentDate = new Date();
+    twoWeeksBeforeCurrentDate.setDate(currentDate.getDate()-14);
+    twoWeeksBeforeCurrentDate = twoWeeksBeforeCurrentDate.toJSON().slice(0,10);
+    //sort the subset by rencently released date 
+    const productsRecentlyAdded = [];
+    for (var index in productList){
+      if (productList[index].released >= twoWeeksBeforeCurrentDate){
+        productsRecentlyAdded.push(productList[index]);
+      }
+    }
+    return productsRecentlyAdded;
+  }
+  else {
+    return productList;
+  }
+
 }
 
