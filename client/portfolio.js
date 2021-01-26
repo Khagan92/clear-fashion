@@ -1,6 +1,22 @@
 // Invoking strict mode https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode#invoking_strict_mode
 'use strict';
 
+const fetchBrands = async () => {
+const response =  await fetch('https://clear-fashion-api.vercel.app/brands');
+const body = await response.json();
+try{
+  if (body.success !== true) {
+    console.error(body);
+    return {currentBrands};
+  }
+
+  return body.data;
+} catch (error) {
+  console.error(error);
+  return {currentBrands};
+
+}
+}
 // current products on the page
 let currentProducts = [];
 let currentPagination = {};
@@ -10,6 +26,8 @@ const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
+const selectBrand = document.querySelector('#brand-select');
+
 
 /**
  * Set global value
@@ -26,12 +44,13 @@ const setCurrentProducts = ({result, meta}) => {
  * Fetch products from api
  * @param  {Number}  [page=1] - current page to fetch
  * @param  {Number}  [size=12] - size of the page
+ * @param  {String}  [brand="all"] - selection of brands
  * @return {Object}
  */
-const fetchProducts = async (page = 1, size = 12) => {
+const fetchProducts = async (page = 1, size = 12, brand = "all") => {
   try {
     const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}&brand=${brand}`
     );
     const body = await response.json();
 
@@ -87,20 +106,33 @@ const renderPagination = pagination => {
   selectPage.selectedIndex = currentPage - 1;
 };
 
-/**
- * Render page selector
- * @param  {Object} pagination
- */
 const renderIndicators = pagination => {
   const {count} = pagination;
-
   spanNbProducts.innerHTML = count;
+};
+
+function onlyUnique(value, index, self){
+  return self.indexOf(value) === index;
+}
+
+const renderBrands = products => {
+  //const products2 = fetchBrands();
+
+  var brandlist=[];
+  brandlist = products.map(product => product.brand)
+  brandlist = brandlist.filter(onlyUnique);
+  brandlist.unshift("all");
+  const options = Array.from(brandlist,brand => `<option value="${brand}">${brand}</option>`).join('');
+  selectBrand.innerHTML = options;
+  selectBrand.selectedIndex = 0;
 };
 
 const render = (products, pagination) => {
   renderProducts(products);
+  renderBrands(products);
   renderPagination(pagination);
   renderIndicators(pagination);
+  
 };
 
 /**
@@ -128,4 +160,32 @@ selectPage.addEventListener('change', event => {
     .then(setCurrentProducts)
     .then(() => render(currentProducts, currentPagination));
 });
+
+selectBrand.addEventListener('change', event => {
+  fetchProducts()
+    .then(setCurrentProducts)
+    .then(() => render(brandFilter(currentProducts,event.target.value), currentPagination));
+});
+
+
+//other useful functions
+
+//brandFilter(currentProducts,event.target.value)
+const brandFilter = (productList, selectedBrand) => {
+
+  if (selectedBrand == "all"){
+    return productList;
+  }
+
+  else{
+    const productsBrandSorted=[];
+    for (var index in productList){
+      if (productList[index].brand===selectedBrand){
+        productsBrandSorted.push(productList[index]);
+      }
+    }
+    return productsBrandSorted;
+  }
+  
+}
 
