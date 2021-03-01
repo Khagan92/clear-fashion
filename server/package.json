@@ -7,8 +7,11 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.5",
+    "mongodb": "^3.6.4",
+    "node": "^15.7.0",
     "parse-domain": "^3.0.3",
-    "require-all": "^3.0.0"
+    "require-all": "^3.0.0",
+    "sandbox.js": "^2.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
