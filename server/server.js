@@ -4,8 +4,28 @@ const MONGODB_DB_NAME = 'clearfashion';
 
 
 async function Connect (MONGODB_URI, MONGODB_DB_NAME) {
-    const client = await MongoClient.connect(MONGODB_URI, {'useNewUrlParser': true});
-    const db =  client.db(MONGODB_DB_NAME)
+    try{
+        const client = await MongoClient.connect(MONGODB_URI, {'useNewUrlParser': true});
+        const db =  client.db(MONGODB_DB_NAME)
+    }
+    catch{
+
+    };
+
+
 };
 
-Connect(MONGODB_URI, MONGODB_DB_NAME)
+const products = [];
+
+function insertProducts (products){
+    const collection = db.collection('products');
+    const result = collection.insertMany(products);
+    
+console.log(result);
+}
+
+
+
+
+Connect(MONGODB_URI, MONGODB_DB_NAME);
+insertProducts(products);
