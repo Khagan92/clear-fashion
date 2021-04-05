@@ -83,3 +83,45 @@ module.exports.close = async () => {
     console.error('🚨 MongoClient.close...', error);
   }
 };
+
+// Find all products related to a given brands
+module.exports.ProductByBrand = async (brand)=>{
+  try{
+    const db = await getDB();
+    const collection = db.collection('products');
+    const query = await collection.find({'brand':brand}).toArray();
+    return query
+  }
+  catch(error){
+    console.error("error with query : ProductByBrand",error);
+    process.exit(1);
+  }
+}
+
+// Find all products less than a price
+module.exports.ProductLessThanPrice = async (Price) => {
+  try{
+    const db = await getDB();
+    const collection = db.collection('products');
+    const query = await collection.find({'price': {$lt : Price}}).toArray();     
+    return query
+}
+catch(error){
+  console.error("error with query : ProductLessThanPrice",error);
+  process.exit(1);
+  }
+}
+
+// Find all products sorted by price
+module.exports.ProductByPrice = async (Price) => {
+  try{
+    const db = await getDB();
+    const collection = db.collection('products');
+    const query = await collection.find().sort({ price : -1}).toArray();     
+    return query
+}
+catch(error){
+  console.error("error with query : ProductByPrice",error);
+  process.exit(1);
+  }
+}
